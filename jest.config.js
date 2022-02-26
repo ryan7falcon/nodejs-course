@@ -1,6 +1,5 @@
 export default {
   moduleNameMapper: {
-    "#(.*)": "<rootDir>/node_modules/$1"
+    '#(.*)': '<rootDir>/node_modules/$1',
   },
 };
-
