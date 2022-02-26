@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
+        "commonjs": false,
         "es2021": true,
         "jest/globals": true
     },
@@ -14,7 +14,8 @@
     "plugins": ["jest"],
     "rules": {
         "semi": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "import/extensions": "off"
     },
    "root": true
 }
