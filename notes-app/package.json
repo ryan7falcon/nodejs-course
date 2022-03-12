@@ -1,9 +1,11 @@
 {
   "type": "module",
-  "devDependencies": {},
+  "devDependencies": {
+    "@jest/globals": "^27.5.1"
+  },
   "dependencies": {
-    "yargs": "^17.3.1",
     "chalk": "^5.0.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "yargs": "^17.3.1"
   }
 }

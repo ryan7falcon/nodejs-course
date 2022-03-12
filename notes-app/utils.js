@@ -1,5 +1,10 @@
-console.log('utils')
+export const trace = (label) => (message) => {
+  console.log(label, message)
+  return message
+}
 
-const add = (a, b) => a + b
-
-module.exports = add
+export const printDebugBuilder = (debug) => (label, message) => {
+  if (debug) {
+    trace(`### ${label}`)(message)
+  }
+}

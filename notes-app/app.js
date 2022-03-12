@@ -1,37 +1,25 @@
-// const add = require('./utils')
+import {
+  addNote, listNotes,
+  readNote, removeNote,
+} from './handlers.js';
+import main from './main.js';
+import { printDebugBuilder } from './utils.js';
 
-// const sum = add(4, -2)
-// console.log(sum)
-import chalk from 'chalk';
-import validator from 'validator';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import { getNotes } from './notes.js';
+// const notes = getNotes()
+// console.log(notes)
+// console.log(validator.isURL('example.com'))
+// console.log(chalk.blue.bold.inverse('Success!'))
+const DEBUG = true
+const printDebug = printDebugBuilder(DEBUG)
 
-const main = () => {
-  const notes = getNotes()
-  console.log(notes)
-  console.log(validator.isURL('example.com'))
-  console.log(chalk.blue.bold.inverse('Success!'))
+printDebug('process.argv: ', process.argv)
 
-  const yarg = yargs(hideBin(process.argv))
-    .version('1.1.0')
-    .command('add', 'Add a new note', {}, (argv) => {
-      console.log('Adding a new note')
-    })
-    .command('remove', 'Remove a note', {}, () => {
-      console.log('Removing a note')
-    })
-    .command('list', 'List notes', {}, () => {
-      console.log('Listing a note')
-    })
-    .command('read', 'Read a note', {}, () => {
-      console.log('Reading a note')
-    })
-    .parse()
-  console.log(yarg)
-}
+const { argv } = main({
+  argv: process.argv,
+  addNoteHandler: addNote,
+  removeNoteHandler: removeNote,
+  listNoteHandler: listNotes,
+  readNoteHandler: readNote,
+})
 
-main()
-
-export { main };
+printDebug('argv: ', argv)

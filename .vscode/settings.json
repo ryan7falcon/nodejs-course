@@ -1,4 +1,5 @@
 {
   "jestrunner.jestCommand": "yarn test",
-  "jest.jestCommandLine": "yarn test"
+  "jest.jestCommandLine": "yarn test",
+  "jestrunner.changeDirectoryToWorkspaceRoot": false
 }
