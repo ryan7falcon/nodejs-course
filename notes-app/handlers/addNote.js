@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { printDebug, trace } from '../utils.js';
 
 export default ({ loadNotes, saveNotes }) => ({ title, body }) => {
@@ -9,14 +10,14 @@ export default ({ loadNotes, saveNotes }) => ({ title, body }) => {
       title,
       body,
     })
-    console.log('---Adding Note---')
+    console.log(chalk.green.inverse('---Adding Note---'))
     console.log(`Title: ${title}`)
     console.log(`Body: ${body}`)
     printDebug('notes', notes)
 
     saveNotes(notes)
   } else {
-    trace('Note title taken: ')(title)
+    trace(chalk.red.inverse('Note title taken: '))(title)
   }
   return notes
 }

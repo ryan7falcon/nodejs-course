@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
-import {
-  addNote,
-} from './index.js';
+import chalk from 'chalk';
+import { addNote } from './index.js';
 
 describe('Add Note', () => {
   afterEach(() => {
@@ -15,7 +14,7 @@ describe('Add Note', () => {
 
     addNote({ loadNotes, saveNotes })({ title: 'Shopping List', body: 'Hello!' })
 
-    expect(logSpy).toHaveBeenCalledWith('---Adding Note---')
+    expect(logSpy).toHaveBeenCalledWith(chalk.green.inverse('---Adding Note---'))
     expect(logSpy).toHaveBeenCalledWith('Title: Shopping List')
     expect(logSpy).toHaveBeenCalledWith('Body: Hello!')
   })
@@ -46,7 +45,7 @@ describe('Add Note', () => {
 
     const notes = addNote({ loadNotes, saveNotes })({ title: 'Shopping List', body: 'Hello!' })
 
-    expect(logSpy).toHaveBeenCalledWith('Note title taken: ', 'Shopping List')
+    expect(logSpy).toHaveBeenCalledWith(chalk.red.inverse('Note title taken: '), 'Shopping List')
     expect(notes).toEqual([{ title: 'Shopping List', body: 'Hello!' }])
   })
 })

@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+import chalk from 'chalk';
 import { removeNote } from './index.js';
 
 describe('Remove Note', () => {
@@ -14,7 +15,7 @@ describe('Remove Note', () => {
 
     const notes = removeNote({ loadNotes, saveNotes })({ title: 'Shopping List2' })
 
-    expect(logSpy).toHaveBeenCalledWith('---Removing Note---')
+    expect(logSpy).toHaveBeenCalledWith(chalk.green.inverse('---Removing Note---'))
     expect(logSpy).toHaveBeenCalledWith('Title: Shopping List2')
     expect(logSpy).toHaveBeenCalledWith('Body: Hello!')
     expect(notes).toEqual([])
@@ -42,7 +43,7 @@ describe('Remove Note', () => {
     const loadNotes = () => oldNotes
     const saveNotes = () => {}
     const notes = removeNote({ loadNotes, saveNotes })({ title: 'Shopping List1' })
-    expect(logSpy).toHaveBeenCalledWith('Note not found: ', 'Shopping List1')
+    expect(logSpy).toHaveBeenCalledWith(chalk.red.inverse('Note not found: '), 'Shopping List1')
     expect(notes).toEqual(oldNotes)
   })
 })

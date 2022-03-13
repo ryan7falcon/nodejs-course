@@ -64,7 +64,7 @@ describe('main', () => {
       ],
       removeNoteHandler: stub,
     }).parse()
-    expect(stub).toHaveBeenCalledWith('Shopping List')
+    expect(stub).toHaveBeenCalledWith({ title: 'Shopping List' })
   })
 
   it('receives list command', () => {

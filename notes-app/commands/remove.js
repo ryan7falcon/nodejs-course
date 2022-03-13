@@ -9,7 +9,7 @@ const remove = (removeNoteHandler) => ({
     },
   },
   handler: (args) => {
-    removeNoteHandler(args.title)
+    removeNoteHandler({ title: args.title })
     // console.log(`removeing ${args.title}`)
   },
 })
