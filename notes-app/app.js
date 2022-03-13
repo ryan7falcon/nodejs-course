@@ -15,7 +15,7 @@ const { argv } = main({
   addNoteHandler: addNote({ loadNotes, saveNotes }),
   removeNoteHandler: removeNote({ loadNotes, saveNotes }),
   listNoteHandler: listNotes({ loadNotes }),
-  readNoteHandler: readNote,
+  readNoteHandler: readNote({ loadNotes }),
 })
 
 printDebug('argv: ', argv)

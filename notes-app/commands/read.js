@@ -9,7 +9,7 @@ const read = (readNoteHandler) => ({
     },
   },
   handler: (args) => {
-    readNoteHandler(args.title)
+    readNoteHandler({ title: args.title })
     // console.log(`reading ${args.title}`)
   },
 })
