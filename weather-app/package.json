@@ -1,0 +1,14 @@
+{
+  "name": "weather-app",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Ryan Galimova",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@jest/globals": "^27.5.1"
+  }
+}
