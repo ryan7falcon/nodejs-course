@@ -37,20 +37,20 @@ describe('main', () => {
     expect(output).toContain('Missing required arguments: title, body');
   })
 
-  it('demands body option for add command', async () => {
+  it('demands title option for remove command', async () => {
     const parser = main({
       argv: [
         '/Users/rgalimova/.nvm/versions/node/v17.6.0/bin/node',
         '/Users/rgalimova/code/node-course/notes-app/app.js',
-        'add',
+        'remove',
       ],
     })
     const output = await new Promise((resolve) => {
-      parser.parse('add --title=Bro', (err, argv, out) => {
+      parser.parse('remove', (err, argv, out) => {
         resolve(out);
       })
     });
-    expect(output).toContain('Missing required argument: body');
+    expect(output).toContain('Missing required argument: title');
   })
 
   it('receives remove command', () => {
@@ -78,6 +78,22 @@ describe('main', () => {
       listNoteHandler: stub,
     }).parse()
     expect(stub).toHaveBeenCalled()
+  })
+
+  it('demands title option for read command', async () => {
+    const parser = main({
+      argv: [
+        '/Users/rgalimova/.nvm/versions/node/v17.6.0/bin/node',
+        '/Users/rgalimova/code/node-course/notes-app/app.js',
+        'read',
+      ],
+    })
+    const output = await new Promise((resolve) => {
+      parser.parse('read', (err, argv, out) => {
+        resolve(out);
+      })
+    });
+    expect(output).toContain('Missing required argument: title');
   })
 
   it('receives read command', () => {

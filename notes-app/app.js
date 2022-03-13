@@ -1,23 +1,22 @@
 import {
   addNote, listNotes,
   readNote, removeNote,
-} from './handlers.js';
+} from './handlers/index.js';
 import main from './main.js';
-import { printDebugBuilder } from './utils.js';
+import { loadNotes, saveNotes } from './notesCrud.js';
+import { printDebug } from './utils.js';
 
 // const notes = getNotes()
 // console.log(notes)
 // console.log(validator.isURL('example.com'))
 // console.log(chalk.blue.bold.inverse('Success!'))
-const DEBUG = true
-const printDebug = printDebugBuilder(DEBUG)
 
 printDebug('process.argv: ', process.argv)
 
 const { argv } = main({
   argv: process.argv,
-  addNoteHandler: addNote,
-  removeNoteHandler: removeNote,
+  addNoteHandler: addNote({ loadNotes, saveNotes }),
+  removeNoteHandler: removeNote({ loadNotes, saveNotes }),
   listNoteHandler: listNotes,
   readNoteHandler: readNote,
 })

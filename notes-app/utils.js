@@ -3,8 +3,11 @@ export const trace = (label) => (message) => {
   return message
 }
 
-export const printDebugBuilder = (debug) => (label, message) => {
+const printDebugBuilder = (debug) => (label, message) => {
   if (debug) {
     trace(`### ${label}`)(message)
   }
 }
+
+export const DEBUG = true
+export const printDebug = printDebugBuilder(DEBUG)

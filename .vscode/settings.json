@@ -1,5 +1,9 @@
 {
   "jestrunner.jestCommand": "yarn test",
   "jest.jestCommandLine": "yarn test",
-  "jestrunner.changeDirectoryToWorkspaceRoot": false
+  "jestrunner.changeDirectoryToWorkspaceRoot": false,
+  "jestrunner.configPath": "jest.config.js",
+  "jestrunner.debugOptions": {
+    "args": []
+  }
 }
