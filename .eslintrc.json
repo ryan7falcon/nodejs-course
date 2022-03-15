@@ -1,21 +1,24 @@
 {
-    "env": {
-        "browser": false,
-        "commonjs": false,
-        "es2022": true,
-        "jest/globals": true
-    },
-    "extends": [
-        "airbnb-base"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 13
-    },
-    "plugins": ["jest"],
-    "rules": {
-        "semi": "off",
-        "no-console": "off",
-        "import/extensions": "off"
-    },
-   "root": true
+  "env": {
+    "browser": false,
+    "commonjs": false,
+    "es2022": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 13
+  },
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "semi": "off",
+    "no-console": "off",
+    "import/extensions": "off",
+    "no-unused-vars": "off"
+  },
+  "root": true
 }
