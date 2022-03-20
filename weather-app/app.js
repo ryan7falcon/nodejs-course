@@ -1,12 +1,11 @@
-import forecast from './utils/forecast.js'
-import geocode from './utils/geocode.js'
+import { printDebug } from './utils.js';
+import getWeather from './getWeather.js'
 
-geocode('New York', (error, data) => {
-  console.log('Error', error)
-  console.log('data', data)
-})
+printDebug('process.argv: ', process.argv)
 
-forecast(true)(44.1545, -75.7088, (error, data) => {
-  console.log('Error', error)
-  console.log('Data', data)
-})
+const address = process.argv[2]
+
+if (!address) {
+  console.log('Please provide address')
+}
+getWeather(address)

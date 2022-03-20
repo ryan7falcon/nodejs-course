@@ -20,8 +20,8 @@ export const main = (mock) => (error, response, callback) => {
   }
 }
 
-export default (mock) => (lattitude, longitude, callback) => {
-  const url = `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_KEY}&query=${lattitude},${longitude}`
+export default (mock) => (latitude, longitude, callback) => {
+  const url = `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_KEY}&query=${latitude},${longitude}`
   // console.log(url)
   if (!mock) {
     request({ url, json: true }, (error, response) => main(false)(error, response, callback))
