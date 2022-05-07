@@ -8,4 +8,4 @@ const address = process.argv[2]
 if (!address) {
   console.log('Please provide address')
 }
-getWeather(address)
+getWeather(true)(address)
