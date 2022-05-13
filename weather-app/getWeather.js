@@ -9,11 +9,11 @@ export default (mock) => (address) => geocode(address, (error, {
   if (error) {
     return console.log('Error', error)
   }
-  return forecast(mock)(latitude, longitude, (error, forecastData) => {
-    if (error) {
-      return console.log('Error', error)
+  return forecast(mock)(latitude, longitude, (err, forecastData) => {
+    if (err) {
+      return console.log('Error', err)
     }
     console.log('location: ', location)
-    return console.log('forecastData', forecastData)
+    return console.log('forecastData: ', forecastData)
   })
 })
