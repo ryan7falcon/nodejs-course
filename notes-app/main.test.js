@@ -1,10 +1,10 @@
-import { jest } from '@jest/globals';
-import main from './main.js';
+import { jest } from '@jest/globals'
+import main from './main.js'
 
 describe('main', () => {
   afterEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks()
+  })
 
   it('receives add command', () => {
     const stub = jest.fn()
@@ -31,10 +31,10 @@ describe('main', () => {
     })
     const output = await new Promise((resolve) => {
       parser.parse('add', (err, argv, out) => {
-        resolve(out);
+        resolve(out)
       })
-    });
-    expect(output).toContain('Missing required arguments: title, body');
+    })
+    expect(output).toContain('Missing required arguments: title, body')
   })
 
   it('demands title option for remove command', async () => {
@@ -47,10 +47,10 @@ describe('main', () => {
     })
     const output = await new Promise((resolve) => {
       parser.parse('remove', (err, argv, out) => {
-        resolve(out);
+        resolve(out)
       })
-    });
-    expect(output).toContain('Missing required argument: title');
+    })
+    expect(output).toContain('Missing required argument: title')
   })
 
   it('receives remove command', () => {
@@ -90,10 +90,10 @@ describe('main', () => {
     })
     const output = await new Promise((resolve) => {
       parser.parse('read', (err, argv, out) => {
-        resolve(out);
+        resolve(out)
       })
-    });
-    expect(output).toContain('Missing required argument: title');
+    })
+    expect(output).toContain('Missing required argument: title')
   })
 
   it('receives read command', () => {

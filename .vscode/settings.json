@@ -6,7 +6,7 @@
   "jestrunner.debugOptions": {
     "args": []
   },
-  "typescript.format.enable": false,
+  "typescript.format.enable": true,
   "eslint.codeActionsOnSave.rules": [],
   "editor.codeActionsOnSave": [
     "source.fixAll.eslint"
