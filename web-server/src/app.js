@@ -1,8 +1,12 @@
-const express = require('express')
-const path = require('path')
-const hbs = require('hbs')
+import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url';
+import hbs from 'hbs'
+import geocode from './utils/geocode.js'
+import forecast from './utils/forecast.js'
 
 const app = express()
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // define paths for express config
 const publicDir = path.join(__dirname, '../public')
@@ -40,9 +44,49 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-  res.send({
-    forecast: 'asd',
-    location: 'lo',
+  const { address } = req.query
+  const mock = false
+
+  if (!address) {
+    return res.send({
+      error: 'You must provide an address',
+    })
+  }
+
+  geocode(address, (error, {
+    latitude,
+    longitude,
+    location,
+  } = {}) => {
+    if (error) {
+      return res.send({
+        error,
+      })
+    }
+    return forecast(mock)(latitude, longitude, (err, forecastData) => {
+      if (err) {
+        return res.send({
+          error,
+        })
+      }
+      return res.send({
+        forecast: forecastData,
+        location,
+        address,
+      })
+    })
+  })
+})
+
+app.get('/products', (req, res) => {
+  if (!req.query.search) {
+    return res.send({
+      error: 'You must provide a search term',
+    })
+  }
+  console.log(req.query.search)
+  return res.send({
+    products: [],
   })
 })
 
