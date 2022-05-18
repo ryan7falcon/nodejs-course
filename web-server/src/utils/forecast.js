@@ -15,13 +15,12 @@ export const main = (mock) => (error, response, callback) => {
     if (!mock) {
       fs.writeFileSync(responseFileName, JSON.stringify(response))
     }
-    callback(undefined, `${current.weather_descriptions[0]}. It is currently ${current.temperature}C and it feels like ${current.feelslike}C`)
+    callback(undefined, `${current.weather_descriptions[0]}. It is currently ${current.temperature}C and it feels like ${current.feelslike}C. The humidity is ${current.humidity}%`)
   }
 }
 
 export default (mock) => (latitude, longitude, callback) => {
   const url = `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_KEY}&query=${latitude},${longitude}`
-  // console.log(url)
   if (!mock) {
     request({ url, json: true }, (error, response) => main(false)(error, response, callback))
   } else {
