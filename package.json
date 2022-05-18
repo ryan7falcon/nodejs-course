@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "start": "cd web-server && npm start"
+
   },
   "devDependencies": {
     "@jest/globals": "^27.5.1",
