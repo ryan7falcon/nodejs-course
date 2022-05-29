@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import Task from './task.js'
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -49,6 +50,12 @@ const userSchema = new mongoose.Schema({
   }],
 })
 
+userSchema.virtual('tasks', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'owner',
+})
+
 // works on the instance of user
 userSchema.methods.generateAuthToken = async function () {
   const user = this
@@ -58,10 +65,18 @@ userSchema.methods.generateAuthToken = async function () {
   return token
 }
 
+userSchema.methods.toJSON = function () {
+  const user = this
+  const userObject = user.toObject()
+
+  delete userObject.password
+  delete userObject.tokens
+
+  return userObject
+}
+
 // works on the whole model
 userSchema.statics.findByCredentials = async (email, password) => {
-  console.log(email)
-  console.log(password)
   const user = await User.findOne({ email })
 
   if (!user) {
@@ -83,6 +98,13 @@ userSchema.pre('save', async function (next) {
     user.password = await bcrypt.hash(user.password, 8)
   }
 
+  next()
+})
+
+// delete user tasks when user is removed
+userSchema.pre('remove', async function (next) {
+  const user = this
+  await Task.deleteMany({ owner: user._id })
   next()
 })
 

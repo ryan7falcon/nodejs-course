@@ -6,6 +6,10 @@ import e from 'express'
 import userRouter from './routers/user.js'
 import taskRouter from './routers/task.js'
 
+import Task from './models/task.js'
+
+import User from './models/user.js'
+
 const app = express()
 const port = process.env.port || 3000
 
@@ -31,12 +35,13 @@ app.listen(port, () => {
   console.log(`Server is up on port ${port}`)
 })
 
-// const myF = async () => {
-//   const token = jwt.sign({ _id: 'abc123' }, 'thisismystuff', { expiresIn: '7 days' })
-//   console.log(token)
+// const main = async () => {
+//   // const task = await Task.findById('6293c33101e4ac351a182bbd')
+//   // await task.populate('owner')
+//   // console.log(task.owner)
 
-//   const data = jwt.verify(token, 'thisismystuff')
-//   console.log(data)
+//   const user = await User.findById('6293c244532c23310f468a8b')
+//   await user.populate('tasks')
+//   console.log(user.tasks)
 // }
-
-// myF()
+// main()
