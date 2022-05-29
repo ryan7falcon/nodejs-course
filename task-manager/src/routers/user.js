@@ -1,6 +1,7 @@
 import express from 'express'
 import { request } from 'http'
 import multer from 'multer'
+import sharp from 'sharp'
 import User from '../models/user.js'
 import auth from '../middleware/auth.js'
 
@@ -110,7 +111,11 @@ router.post(
   upload.single('avatar'),
   async (req, res) => {
     try {
-      req.user.avatar = req.file.buffer
+      const buffer = await sharp(req.file.buffer).png().resize({
+        width: 250,
+        height: 250,
+      }).toBuffer()
+      req.user.avatar = buffer
       await req.user.save()
       return res.send()
     } catch (e) {
