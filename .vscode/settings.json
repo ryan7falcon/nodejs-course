@@ -1,8 +1,9 @@
 {
-  "jestrunner.jestCommand": "yarn test",
-  "jest.jestCommandLine": "yarn test",
+  "jestrunner.projectPath": "/Users/ryangalimova/code/nodejs-course/task-manager",
+  "jestrunner.jestCommand": "cd task-manager && yarn test",
+  "jest.jestCommandLine": "cd task-manager && yarn test",
   "jestrunner.changeDirectoryToWorkspaceRoot": false,
-  "jestrunner.configPath": "jest.config.js",
+  "jestrunner.configPath": "task-manager/jest.config.js",
   "jestrunner.debugOptions": {
     "args": []
   },

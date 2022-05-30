@@ -1,5 +1,4 @@
 import express from 'express'
-import { request } from 'http'
 import multer from 'multer'
 import sharp from 'sharp'
 import User from '../models/user.js'
@@ -13,10 +12,11 @@ router.post('/users', async (req, res) => {
   const user = new User({ name, email, password })
   try {
     const token = await user.generateAuthToken()
-    sendWelcomeEmail(user.email, user.name)
-    res.status(201).send({ user, token })
+    await sendWelcomeEmail(user.email, user.name)
+    return res.status(201).send({ user, token })
   } catch (e) {
-    res.status(400).send(e.message)
+    console.log(e.message)
+    return res.status(400).send(e.message)
   }
 })
 
@@ -25,9 +25,10 @@ router.post('/users/login', async (req, res) => {
     const user = await User.findByCredentials(req.body.email, req.body.password)
     const token = await user.generateAuthToken()
 
-    res.send({ user, token })
+    return res.send({ user, token })
   } catch (e) {
-    res.status(400).send(e.message)
+    console.log(e.message)
+    return res.status(400).send(e.message)
   }
 })
 
@@ -35,9 +36,10 @@ router.post('/users/logout', auth, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token)
     await req.user.save()
-    res.send()
+    return res.send()
   } catch (e) {
-    res.status(500).save()
+    console.log(e.message)
+    return res.status(500).save()
   }
 })
 
@@ -45,15 +47,14 @@ router.post('/users/logoutAll', auth, async (req, res) => {
   try {
     req.user.tokens = []
     await req.user.save()
-    res.send()
+    return res.send()
   } catch (e) {
-    res.status(500).save()
+    console.log(e.message)
+    return res.status(500).save()
   }
 })
 
-router.get('/users/me', auth, async (req, res) => {
-  res.send(req.user)
-})
+router.get('/users/me', auth, async (req, res) => res.send(req.user))
 
 router.patch('/users/me', auth, async (req, res) => {
   const updates = Object.keys(req.body)
@@ -75,6 +76,7 @@ router.patch('/users/me', auth, async (req, res) => {
 
     return res.send(user)
   } catch (e) {
+    console.log(e.message)
     return res.status(500).send(e.message)
   }
 })
@@ -88,9 +90,10 @@ router.delete('/users/me', auth, async (req, res) => {
     // }
 
     await req.user.remove()
-    sendGoodbyeEmail(req.user.email, req.user.name)
+    await sendGoodbyeEmail(req.user.email, req.user.name)
     return res.send(req.user)
   } catch (e) {
+    console.log(e.message)
     return res.status(500).send(e.message)
   }
 })
@@ -121,12 +124,11 @@ router.post(
       await req.user.save()
       return res.send()
     } catch (e) {
+      console.log(e.message)
       return res.status(500).send(e.message)
     }
   },
-  (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
-  },
+  (error, req, res, next) => res.status(400).send({ error: error.message }),
 )
 
 router.delete(
@@ -138,12 +140,11 @@ router.delete(
       await req.user.save()
       return res.send()
     } catch (e) {
+      console.log(e.message)
       return res.status(500).send(e.message)
     }
   },
-  (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
-  },
+  (error, req, res, next) => res.status(400).send({ error: error.message }),
 )
 
 router.get(
@@ -156,13 +157,12 @@ router.get(
         throw new Error('no user or image')
       }
       res.set('Content-Type', 'image/jpg')
-      res.send(user.avatar)
+      return res.send(user.avatar)
     } catch (e) {
-      res.status(404).send(e.message)
+      console.log(e.message)
+      return res.status(404).send(e.message)
     }
   },
-  (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
-  },
+  (error, req, res, next) => res.status(400).send({ error: error.message }),
 )
 export default router

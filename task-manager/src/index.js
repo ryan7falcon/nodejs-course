@@ -1,25 +1,7 @@
-import express from 'express'
-import './db/mongoose.js'
-import multer from 'multer'
-import userRouter from './routers/user.js'
-import taskRouter from './routers/task.js'
+import app from './app.js'
 
-const app = express()
 const port = process.env.PORT
-
-app.use(express.json())
-
-app.use(userRouter)
-app.use(taskRouter)
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`)
-})
-
-const upload = multer({
-  dest: 'images',
-})
-
-app.post('/upload', upload.single('upload'), (req, res) => {
-  res.send()
 })
