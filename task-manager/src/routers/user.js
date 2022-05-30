@@ -4,6 +4,7 @@ import multer from 'multer'
 import sharp from 'sharp'
 import User from '../models/user.js'
 import auth from '../middleware/auth.js'
+import { sendWelcomeEmail, sendGoodbyeEmail } from '../emails/accounts.js'
 
 const router = new express.Router()
 
@@ -12,6 +13,7 @@ router.post('/users', async (req, res) => {
   const user = new User({ name, email, password })
   try {
     const token = await user.generateAuthToken()
+    sendWelcomeEmail(user.email, user.name)
     res.status(201).send({ user, token })
   } catch (e) {
     res.status(400).send(e.message)
@@ -86,7 +88,7 @@ router.delete('/users/me', auth, async (req, res) => {
     // }
 
     await req.user.remove()
-
+    sendGoodbyeEmail(req.user.email, req.user.name)
     return res.send(req.user)
   } catch (e) {
     return res.status(500).send(e.message)
