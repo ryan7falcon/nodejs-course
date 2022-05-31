@@ -8,7 +8,9 @@ import User from '../src/models/user.js'
 
 jest.mock('@sendgrid/mail', () => ({
   setApiKey: jest.fn(async () => {}),
-  send: jest.fn(async () => { console.log('sending email') }),
+  send: jest.fn(async () => {
+    //  console.log('sending email')
+  }),
 }));
 
 const userOneId = new mongoose.Types.ObjectId()
@@ -111,4 +113,36 @@ test('should not delete account for unauth user', async () => {
     .delete('/users/me')
     .send()
     .expect(401)
+})
+
+test('should upload avatar image', async () => {
+  await request(app)
+    .post('/users/me/avatar')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .attach('avatar', 'tests/fixtures/image.png')
+    .expect(200)
+  const user = await User.findById(userOneId)
+  expect(user.avatar).toEqual(expect.any(Buffer))
+})
+
+test('Should update valid user fields', async () => {
+  await request(app)
+    .patch('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      name: 'Ellie',
+    })
+    .expect(200)
+  const user = await User.findById(userOneId)
+  expect(user.name).toBe('Ellie')
+})
+
+test('should not updae invalid user fields', async () => {
+  await request(app)
+    .patch('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      location: 'paris',
+    })
+    .expect(400)
 })

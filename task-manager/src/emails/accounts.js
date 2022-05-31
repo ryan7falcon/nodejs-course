@@ -19,7 +19,7 @@ const sendWelcomeEmail = async (email, name) => {
   return sgMail
     .send(msg)
     .then((m) => {
-      console.log('email sent', m)
+      // console.log('email sent', m)
     }).catch((error) => {
       console.log('err!!', error)
     })
@@ -41,7 +41,7 @@ const sendGoodbyeEmail = async (email, name) => {
   return sgMail
     .send(msg)
     .then((m) => {
-      console.log('email sent', m)
+      // console.log('email sent', m)
     }).catch((error) => {
       console.log('error!', error)
     })
