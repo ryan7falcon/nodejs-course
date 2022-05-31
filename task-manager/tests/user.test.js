@@ -1,10 +1,9 @@
 import request from 'supertest'
-import jwt from 'jsonwebtoken'
-import mongoose from 'mongoose'
-
 import sgMail from '@sendgrid/mail'
+
 import app from '../src/app.js'
 import User from '../src/models/user.js'
+import { userOne, userOneId, setupDb } from './fixtures/db.js'
 
 jest.mock('@sendgrid/mail', () => ({
   setApiKey: jest.fn(async () => {}),
@@ -13,31 +12,7 @@ jest.mock('@sendgrid/mail', () => ({
   }),
 }));
 
-const userOneId = new mongoose.Types.ObjectId()
-
-const getUserOne = () => {
-  const token = jwt.sign({ _id: userOneId }, process.env.JWT_SECRET)
-  return {
-    _id: userOneId,
-    name: 'Mike',
-    email: 'galiya991@example.com',
-    password: 'whatis123',
-    tokens: [{
-      token,
-    }],
-  }
-}
-const userOne = getUserOne()
-
-beforeEach(async () => {
-  await User.deleteMany()
-  await new User(userOne).save()
-})
-
-afterEach(() => {
-  // jest.resetAllMocks();
-  // jest.restoreAllMocks();
-})
+beforeEach(setupDb)
 
 test('should sign up a new user', async () => {
   const userToSignup = {
