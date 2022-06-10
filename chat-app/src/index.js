@@ -3,6 +3,8 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 import http from 'http'
 import { Server } from 'socket.io'
+import Filter from 'bad-words'
+import { generateMessage, generateLocationMessage } from './utils/messages.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -18,15 +20,26 @@ app.use(express.static(publicDir))
 io.on('connection', (socket) => {
   console.log('New websocket connection')
 
-  socket.emit('message', 'Welcome!')
-  socket.broadcast.emit('message', 'A new user has joined!')
+  socket.emit('message', generateMessage('Welcome!'))
+  socket.broadcast.emit('message', generateMessage('A new user has joined!'))
 
-  socket.on('sendMessage', (msg) => {
-    io.emit('message', msg)
+  socket.on('sendMessage', (msg, callback) => {
+    const filter = new Filter()
+
+    if (filter.isProfane(msg)) {
+      return callback('Profanity is not allowed!')
+    }
+    io.emit('message', generateMessage(msg))
+    return callback()
   })
 
   socket.on('disconnect', () => {
-    io.emit('message', 'A user has left!')
+    io.emit('message', generateMessage('A user has left!'))
+  })
+
+  socket.on('sendLocation', (loc, callback) => {
+    io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${loc.latitude},${loc.longitude}`))
+    callback()
   })
 })
 
