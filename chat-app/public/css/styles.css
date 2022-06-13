@@ -5,7 +5,7 @@ input {
   margin: 10px;
 }
 
-form{
+.compose>form{
   flex-grow: 2;
   display: flex;
 }
@@ -62,4 +62,52 @@ button:disabled {
 .chat__messages {
   flex-grow: 2;
   padding: 15px;
+}
+
+.message__name {
+font-weight: 600;
+font-size: small;
+}
+
+.message__meta {
+ color: #999;
+ font-weight: 100;
+}
+
+.message>p:first-child {
+  margin-bottom: 5px;
+}
+
+.message>p:nth-child(2) {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(36, 33, 43);
+}
+
+.centered-form__box {
+  width: 30vw;
+  background-color: rgb(238, 238, 238);
+  padding: 20px;
+}
+
+.centered-form__box>form {
+  display: flex;
+  flex-direction: column;
+  color: #666;
+  font-size: small;
+}
+
+.centered-form__box>h1 {
+  margin-top: 0;
+}
+
+.centered-form__box input,.centered-form__box button {
+  margin: 10px 0 20px 0;
 }
