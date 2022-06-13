@@ -1,6 +1,15 @@
+:root {
+  --main: hsl(261, 46%, 40%);
+  --main-light: hsl(261, 25%, 58%);
+  --dark: hsl(261, 30%, 15%);
+  --grey-light: #eee;
+  --grey: #666;
+  --grey-dark: #333;
+}
+
 input {
   padding: 9px;
-  border: solid 1px rgb(221, 221, 221);
+  border: solid 1px var(--grey-light);
   flex-grow: 2;
   margin: 10px;
 }
@@ -11,7 +20,7 @@ input {
 }
 
 body {
-  color: rgb(72, 72, 72);
+  color: var(--grey-dark);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   box-sizing: border-box;
   width: 100%;
@@ -24,19 +33,20 @@ body {
 
 button {
   padding: 10px;
-  background-color: rgb(94, 16, 168);
+  background-color: var(--main);
   border: none;
   color: white;
   margin: 10px;
 }
 button:disabled {
-  background-color: rgb(160, 147, 172);
+  background-color: var(--main-light);
 }
 
 .chat {
   display: flex;
   flex: 1;
-  background-color: rgb(243, 243, 243);
+  background-color:  var(--grey-light);
+  height: 100vh;
 }
 
 .chat__main {
@@ -44,7 +54,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border: solid 1px rgb(232, 232, 232);
+  border: solid 1px var(--grey-light);
   margin-left: 10px; 
   margin-right: 10px;
 }
@@ -55,12 +65,12 @@ button:disabled {
 }
 
 .chat__sidebar {
-  background-color: rgb(37, 34, 41);
+  background-color: var(--dark);
   color: white;
 ;
 }
 .chat__sidebar h1 {
-  background: rgb(24, 24, 27);
+  background: rgba(0, 0, 0, 0.2);
   font-size: 24px;
   margin:0;
   padding: 25px;
@@ -90,6 +100,10 @@ button:disabled {
 .chat__messages {
   flex-grow: 2;
   padding: 15px;
+  overflow-y: auto;
+}
+.message {
+  margin-bottom: 16px;
 }
 
 .message__name {
@@ -108,7 +122,6 @@ font-size: small;
 
 .message>p:nth-child(2) {
   margin-top: 5px;
-  margin-bottom: 20px;
 }
 
 .centered-form {
@@ -116,7 +129,7 @@ font-size: small;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(36, 33, 43);
+  background-color: var(--dark);
 }
 
 .centered-form__box {
@@ -128,7 +141,7 @@ font-size: small;
 .centered-form__box>form {
   display: flex;
   flex-direction: column;
-  color: #666;
+  color: var(--grey);
   font-size: small;
 }
 
